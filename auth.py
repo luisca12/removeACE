@@ -3,6 +3,7 @@ from netmiko.exceptions import NetMikoAuthenticationException, NetMikoTimeoutExc
 from functions import *
 from log import *
 import socket
+import traceback
 
 username = ""
 execPrivPassword = ""
@@ -30,12 +31,16 @@ def Auth():
                     else:
                         print(f"Device {ip} is not reachable on port TCP 22, will be skipped.\n")
                         authLog.error(f"Device IP: {ip}, is not reachable on port TCP 22.")
+                        authLog.debug(traceback.format_exc())
+
                 except Exception as error:
                     print("Error occurred while checking device reachability:", error,"\n")
                     authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
+                    authLog.debug(traceback.format_exc())
             else:
                 print(f"Invalid IP address format: {ip}, will be skipped.")
                 authLog.error(f"User {username} input the following invalid IP: {ip}")
+                authLog.debug(traceback.format_exc())
         if validIPs:
             break
 
@@ -47,7 +52,7 @@ def Auth():
 
             for deviceIP in validIPs:
                 netDevice = {
-                    'device_type' : 'cisco_xe',
+                    'device_type' : 'cisco_ios',
                     'ip' : deviceIP,
                     'username' : username,
                     'password' : password,
@@ -55,9 +60,7 @@ def Auth():
                 }
 
                 sshAccess = ConnectHandler(**netDevice)
-                sshAccess.enable()
                 print(f"Login successful! Logged to device {deviceIP} \n")
-
                 authLog.info(f"Successful login - remote device IP: {deviceIP}, Username: {username}")
 
             return validIPs, username, netDevice
@@ -66,13 +69,16 @@ def Auth():
             print("\n Login incorrect. Please check your username and password")
             print(" Retrying operation... \n")
             authLog.error(f"Failed to authenticate - remote device IP: {deviceIP}, Username: {username}")
+            authLog.debug(traceback.format_exc())
 
         except NetMikoTimeoutException:
             print("\n Connection to the device timed out. Please check your network connectivity and try again.")
             print(" Retrying operation... \n")
             authLog.error(f"Connection timed out, device not reachable - remote device IP: {deviceIP}, Username: {username}\n")
+            authLog.debug(traceback.format_exc())
                        
         except socket.error:
             print("\n IP address is not reachable. Please check the IP address and try again.")
             print(" Retrying operation... \n")
             authLog.error(f"Remote device unreachable - remote device IP: {deviceIP}, Username: {username}\n")
+            authLog.debug(traceback.format_exc())

@@ -9,16 +9,17 @@ def greetingString():
 
 def menuString(deviceIP, username):
         os.system("CLS")
-        print("Connected to:", deviceIP, "as", username)
-        print('\n  -------------------------------------------------------------- ')
-        print('\t\tMenu - Please choose an option ')
+        print(f"Connected to: {deviceIP} as {username}\n")
+        print('  -------------------------------------------------------------- ')
+        print('\t\tMenu - Please choose an option')
         print('\t\t  Only numbers are accepted')
         print('  -------------------------------------------------------------- ')
-        print('>\t     1. To take the following show commands:           <')
-        print('\t  show run | i wccp, show run | i wccp|interface\t')
-        print('\t\t   show run interface vlan1700\n')          
-        print('>\t\t\t2. Exit the program\t\t     <')
-        print('\n  -------------------------------------------------------------- ')
+        print('  >\t\t1. To run the following commands:\t       <\n')
+        print('\t       show access-list qos-trusted-20230615')
+        print('\t\t\tremove ACEs 70 & 80')
+        print('\t     Add back 70 & 80 but with IP 30.230.15.145\n')          
+        print('  >\t\t\t2. Exit the program\t\t       <')
+        print('  -------------------------------------------------------------- \n')
 
 def inputErrorString():
         os.system("CLS")

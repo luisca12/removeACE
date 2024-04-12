@@ -17,6 +17,7 @@ def main():
                 # This option will show the interfaces not connected.
                 changeACL(validIPs, username, netDevice)
             if selection == "2":
+                authLog.info(f"User {username} disconnected from the devices {validIPs}")
                 authLog.info(f"User {username} logged out from the program.")
                 break
         else:
