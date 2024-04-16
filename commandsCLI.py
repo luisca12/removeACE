@@ -8,7 +8,7 @@ import os
 import traceback
 
 shRun = "show run"
-shACL = "show ip acce qos-trusted-20230615"
+shACL = "show ip acceess-list qos-trusted-20230615"
 shHostname = "show run | i hostname"
 
 removeACE = [
@@ -53,11 +53,12 @@ def changeACL(validIPs, username, netDevice):
                     file.write(f"User {username} connected to device IP {validDeviceIP}\n\n")
                     authLog.info(f"User {username} is now running commands at: {validDeviceIP}")
 
-                    print(f"INFO: Taking a show ip access-list qos-trusted-20230615 for device: {validDeviceIP}")
-                    shACLOut = sshAccess.send_command(shACL)
-                    authLog.info(f"Automation successfully ran the command: {shACL}\n{shACLOut}")
+                    print(f"INFO: Taking a {shACL} for device: {validDeviceIP}")
+                    shACLOutBefore = sshAccess.send_command(shACL)
+                    print(f"Current (Old) ACL Configuration:\n{shACLOutBefore}")
+                    authLog.info(f"Automation successfully ran the command: {shACL}\n{shACLOutBefore}")
                     file.write(f"INFO: Current ACL qos-trusted-20230615\n")
-                    file.write(f"{shHostnameOut}{shACL}\n{shACLOut}\n\n")
+                    file.write(f"{shHostnameOut}{shACL}\n{shACLOutBefore}\n\n")
 
                     print(f"INFO: Deleting ACEs 70 & 80 from ACL qos-trusted-20230615 for device: {validDeviceIP}")
                     print(f"INFO: Adding new ACEs 70 & 80 for ACL qos-trusted-20230615 for device: {validDeviceIP}")
@@ -69,19 +70,19 @@ def changeACL(validIPs, username, netDevice):
                     removeACEOut = sshAccess.send_config_set(removeACE)
                     authLog.info(f"Automation successfully ran the commands for device: {validDeviceIP}:\n {removeACEOut}")
                     file.write(f"INFO: The following commands were executed:\n{removeACEOut}\n")
-                    print(f"INFO: Successfully deleted the old 70 & 80 ACEs and added the new 70 & 80 ACEs for device: {validDeviceIP}")
+                    print(f"INFO: Successfully deleted the old 70 & 80 ACEs and added the new 70 & 80 ACEs for device: {validDeviceIP}\n")
                     shACLOutAfter = sshAccess.send_command(shACL)
-                    file.write(f"INFO: New configuration for device {validDeviceIP} ACL qos-trusted-20230615:\n{shACLOutAfter}")
+                    file.write(f"INFO: New configuration for device {validDeviceIP} ACL qos-trusted-20230615:\n{shACLOutAfter}\n")
                     print(f"INFO: New configuration for device {validDeviceIP} ACL qos-trusted-20230615:\n{shACLOutAfter}\n")
                     authLog.info(f"New configuration for ACL qos-trusted-20230615 in device {validDeviceIP}:\n {removeACE}")
 
     except Exception as error:
-        print(f"An error occurred: {error}")
+        print(f"An error occurred: {error}\n", traceback.format_exc())
         authLog.info(f"User {username} connected to {validDeviceIP} got an error: {error}")
-        authLog.debug(traceback.format_exc())
+        authLog.debug(traceback.format_exc(),"\n")
         return []
     
     finally:
-        print("Outputs and files successfully created.")
+        print("Outputs and files successfully created.\n")
         print("For any erros or logs please check authLog.txt\n")
         os.system("PAUSE")

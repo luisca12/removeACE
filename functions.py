@@ -1,4 +1,4 @@
-import re
+import socket
 from log import *
 
 def checkIsDigit(input_str):
@@ -15,11 +15,19 @@ def checkIsDigit(input_str):
     #    return False
 
 def validateIP(deviceIP):
-    validIP_Pattern = r'^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$'
-    if re.match(validIP_Pattern, deviceIP):
-        authLog.info(f"IP successfully validated {deviceIP}")
-        return all(0 <= int(num) <= 255 for num in deviceIP.split('.'))
-    return False
+    try:
+        socket.inet_aton(deviceIP)
+        authLog.info(f"IP successfully validated: {deviceIP}")
+        return True
+    except socket.error:
+        authLog.error(f"Not a valid IP address: {deviceIP}") 
+        try:
+            socket.gethostbyname(deviceIP)
+            authLog.info(f"Hostname successfully validated: {deviceIP}")
+            return True
+        except socket.gaierror:
+            authLog.error(f"Not a valid hostname: {deviceIP}")
+            return False
                 
 def delStringFromFile(filePath, stringToDel):
     with open(filePath, "r") as file:
@@ -29,3 +37,6 @@ def delStringFromFile(filePath, stringToDel):
 
     with open(filePath, "w") as file:
         file.write(updated_content)
+
+def checkYNInput(stringInput):
+    return stringInput.lower() == 'y' or stringInput.lower() == 'n'

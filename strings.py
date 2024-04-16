@@ -1,5 +1,4 @@
 import os
-from auth import *
 
 def greetingString():
         os.system("CLS")

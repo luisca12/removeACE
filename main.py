@@ -14,7 +14,7 @@ def main():
         selection = input("Please choose the option that you want: ")
         if checkIsDigit(selection):
             if selection == "1":
-                # This option will show the interfaces not connected.
+                # This option will modify the ACL
                 changeACL(validIPs, username, netDevice)
             if selection == "2":
                 authLog.info(f"User {username} disconnected from the devices {validIPs}")
