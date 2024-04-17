@@ -27,27 +27,33 @@ def Auth():
 
         csvFile = input("Please enter the path to the CSV file: ")
         authLog.info(f"User chose to input a CSV file. CSV File path: {csvFile}")
-        try:
-            with open(csvFile, "r") as deviceFile:
-                csvReader = csv.reader(deviceFile)
-                for row in csvReader:
-                    for ip in row:
-                        ip = ip.strip()
-                        if validateIP(ip):
-                            validIPs.append(ip)
-                        else:
-                            print(f"Invalid IP address format: {ip}, will be skipped.\n")
-                            authLog.error(f"User {username} input the following invalid IP: {ip}")
-        except FileNotFoundError:
-            print("File not found. Please check the file path and try again.")
-            authLog.error(f"File not found in path {csvFile}")
-            return
+        while True:
+            try:
+                with open(csvFile, "r") as deviceFile:
+                    csvReader = csv.reader(deviceFile)
+                    for row in csvReader:
+                        for ip in row:
+                            ip = ip.strip()
+                            ip = ip + ".mgmt.internal.das"
+                            print(ip)
+                            os.system("PAUSE")
+                            if validateIP(ip):
+                                authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
+                                validIPs.append(ip)
+                                break
+                            else:
+                                print(f"Invalid IP address format: {ip}, will be skipped.\n")
+                                authLog.error(f"Invalid IP address found: {ip} in file: {csvFile}")
+            except FileNotFoundError:
+                print("File not found. Please check the file path and try again.")
+                authLog.error(f"File not found in path {csvFile}")
+                authLog.error(traceback.format_exc(),"\n")
 
-        if not validIPs:
-            print(f"No valid IP addresses found in the file path: {csvFile}\n")
-            authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
-            os.system("PAUSE")
-            return
+            if not validIPs:
+                print(f"No valid IP addresses found in the file path: {csvFile}\n")
+                authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
+                authLog.error(traceback.format_exc(),"\n")
+                os.system("PAUSE")
     else:
         authLog.info(f"User decided to manually enter the IP Addresses.")
         while True:
@@ -98,9 +104,9 @@ def Auth():
                         'secret' : execPrivPassword
                     }
 
-                    sshAccess = ConnectHandler(**netDevice)
-                    print(f"Login successful! Logged to device {deviceIP} \n")
-                    authLog.info(f"Successful login - remote device IP: {deviceIP}, Username: {username}")
+                    # sshAccess = ConnectHandler(**netDevice)
+                    # print(f"Login successful! Logged to device {deviceIP} \n")
+                    authLog.info(f"Successful saved credentials for username: {username}")
 
                 return validIPs, username, netDevice
 
