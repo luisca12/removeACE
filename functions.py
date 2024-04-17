@@ -12,11 +12,6 @@ def checkIsDigit(input_str):
     except Exception as error:
         authLog.error(f"Invalid option chosen: {input_str}, error: {error}\n")
 
-    #if input_str.strip().isdigit():
-    #    return True
-    #else:
-    #    return False
-
 # def validateIP(deviceIP):
 #     try:
 #         socket.inet_aton(deviceIP)
