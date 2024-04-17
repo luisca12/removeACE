@@ -3,10 +3,12 @@ from netmiko.exceptions import NetMikoAuthenticationException, NetMikoTimeoutExc
 from functions import *
 from strings import greetingString
 from log import *
+from log import invalidIPLog
 import socket
 import traceback
 import csv
 import os
+import logging
 
 username = ""
 execPrivPassword = ""
@@ -36,7 +38,6 @@ def Auth():
                             ip = ip.strip()
                             ip = ip + ".mgmt.internal.das"
                             print(ip)
-                            os.system("PAUSE")
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
                                 validIPs.append(ip)
@@ -48,14 +49,16 @@ def Auth():
                 print("File not found. Please check the file path and try again.")
                 authLog.error(f"File not found in path {csvFile}")
                 authLog.error(traceback.format_exc())
-                continue
+                print("Exiting the program...")
+                os.system("PAUSE")
+                break
 
             if not validIPs:
                 print(f"No valid IP addresses found in the file path: {csvFile}\n")
                 authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
                 authLog.error(traceback.format_exc())
                 os.system("PAUSE")
-                continue
+                return None
             
             return validIPs,username,netDevice
     else:

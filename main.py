@@ -11,7 +11,7 @@ def main():
 
     while True:
         menuString(validIPs, username), print("\n")
-        selection = input("Please choose the option that you want: ")
+        selection = input("Please choose the option that yyou want: ")
         if checkIsDigit(selection):
             if selection == "1":
                 # This option will modify the ACL

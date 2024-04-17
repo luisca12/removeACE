@@ -14,6 +14,12 @@ configHandler = logging.FileHandler('configChangesLog.txt')
 configHandler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 configChangeLog.addHandler(configHandler)
 
+invalidIPLog = logging.getLogger('invalidIPLog')
+invalidIPLog.setLevel(logging.INFO)
+invalidIPHandler = logging.FileHandler('invalidIPLog.txt')
+invalidIPHandler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+invalidIPLog.addHandler(invalidIPHandler)
+
 # Configure Logging for Netmiko
 # No longer needed !!!!!
 # netmikoLogger = logging.getLogger("netmiko")
