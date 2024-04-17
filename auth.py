@@ -26,10 +26,9 @@ def Auth():
         manualInput = input("\nDo you want to choose a CSV file?(y/n):")
 
     if manualInput == "y":
-
-        csvFile = input("Please enter the path to the CSV file: ")
-        authLog.info(f"User chose to input a CSV file. CSV File path: {csvFile}")
         while True:
+            csvFile = input("Please enter the path to the CSV file: ")
+            authLog.info(f"User chose to input a CSV file. CSV File path: {csvFile}")
             try:
                 with open(csvFile, "r") as deviceFile:
                     csvReader = csv.reader(deviceFile)
@@ -51,7 +50,7 @@ def Auth():
                 authLog.error(traceback.format_exc())
                 print("Exiting the program...")
                 os.system("PAUSE")
-                break
+                continue
 
             if not validIPs:
                 print(f"No valid IP addresses found in the file path: {csvFile}\n")
