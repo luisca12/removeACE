@@ -47,16 +47,17 @@ def Auth():
             except FileNotFoundError:
                 print("File not found. Please check the file path and try again.")
                 authLog.error(f"File not found in path {csvFile}")
-                authLog.error(traceback.format_exc(),"\n")
+                authLog.error(traceback.format_exc())
                 continue
 
             if not validIPs:
                 print(f"No valid IP addresses found in the file path: {csvFile}\n")
                 authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
-                authLog.error(traceback.format_exc(),"\n")
+                authLog.error(traceback.format_exc())
                 os.system("PAUSE")
                 continue
-            break
+            
+            return validIPs,username,netDevice
     else:
         authLog.info(f"User decided to manually enter the IP Addresses.")
         while True:
@@ -79,7 +80,7 @@ def Auth():
                         else:
                             print(f"Device {ip} is not reachable on port TCP 22, will be skipped.")
                             authLog.error(f"Device IP: {ip}, is not reachable on port TCP 22.")
-                            authLog.debug(traceback.format_exc(),"\n")
+                            authLog.debug(traceback.format_exc())
 
                     except Exception as error:
                         print("Error occurred while checking device reachability:", error,"\n")
