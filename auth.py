@@ -35,7 +35,7 @@ def Auth():
                     for row in csvReader:
                         for ip in row:
                             ip = ip.strip()
-                            #ip = ip + ".mgmt.internal.das"
+                            ip = ip + ".mgmt.internal.das"
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
                                 print(f"INFO: {ip} succesfully validated.")
