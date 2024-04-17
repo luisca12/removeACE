@@ -1,6 +1,6 @@
-from netmiko import ConnectHandler
+
 from netmiko.exceptions import NetMikoAuthenticationException, NetMikoTimeoutException
-from functions import *
+from functions import checkYNInput,validateIP,requestLogin
 from strings import greetingString
 from log import *
 from log import invalidIPLog
@@ -35,7 +35,7 @@ def Auth():
                     for row in csvReader:
                         for ip in row:
                             ip = ip.strip()
-                            ip = ip + ".mgmt.internal.das"
+                            #ip = ip + ".mgmt.internal.das"
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
                                 print(f"INFO: {ip} succesfully validated.")
@@ -55,6 +55,8 @@ def Auth():
                                     print("Error occurred while checking device reachability:", error,"\n")
                                     authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
                                     authLog.debug(traceback.format_exc())
+                                finally:
+                                    connTest.close()
                             else:
                                 print(f"INFO: Invalid IP address format: {ip}, will be skipped.\n")
                                 authLog.error(f"Invalid IP address found: {ip} in file: {csvFile}")
@@ -70,7 +72,9 @@ def Auth():
                 authLog.error(f"File not found in path {csvFile}")
                 authLog.error(traceback.format_exc())
                 continue
-        
+
+        validIPs, username, netDevice = requestLogin(validIPs)
+
         return validIPs,username,netDevice
     else:
         authLog.info(f"User decided to manually enter the IP Addresses.")
@@ -106,42 +110,4 @@ def Auth():
                     authLog.debug(traceback.format_exc())
             if validIPs:
                 break
-
-        while True:
-            try:
-                username = input("Please enter your unsername: ")
-                password = input("Please enter your password: ")
-                execPrivPassword = input("Pleae input your enable password: ")
-
-                for deviceIP in validIPs:
-                    netDevice = {
-                        'device_type' : 'cisco_ios',
-                        'ip' : deviceIP,
-                        'username' : username,
-                        'password' : password,
-                        'secret' : execPrivPassword
-                    }
-
-                    # sshAccess = ConnectHandler(**netDevice)
-                    # print(f"Login successful! Logged to device {deviceIP} \n")
-                    authLog.info(f"Successful saved credentials for username: {username}")
-
-                return validIPs, username, netDevice
-
-            except NetMikoAuthenticationException:
-                print("\n Login incorrect. Please check your username and password")
-                print(" Retrying operation... \n")
-                authLog.error(f"Failed to authenticate - remote device IP: {deviceIP}, Username: {username}")
-                authLog.debug(traceback.format_exc())
-
-            except NetMikoTimeoutException:
-                print("\n Connection to the device timed out. Please check your network connectivity and try again.")
-                print(" Retrying operation... \n")
-                authLog.error(f"Connection timed out, device not reachable - remote device IP: {deviceIP}, Username: {username}")
-                authLog.debug(traceback.format_exc())
-                        
-            except socket.error:
-                print("\n IP address is not reachable. Please check the IP address and try again.")
-                print(" Retrying operation... \n")
-                authLog.error(f"Remote device unreachable - remote device IP: {deviceIP}, Username: {username}")
-                authLog.debug(traceback.format_exc())
+        validIPs, username, netDevice = requestLogin(validIPs)

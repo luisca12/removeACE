@@ -8,7 +8,7 @@ import os
 import traceback
 
 shRun = "show run"
-shACL = "show ip acceess-list qos-trusted-20230615"
+shACL = "show ip access-list qos-trusted-20230615"
 shHostname = "show run | i hostname"
 
 removeACE = [
@@ -70,7 +70,7 @@ def changeACL(validIPs, username, netDevice):
                     removeACEOut = sshAccess.send_config_set(removeACE)
                     authLog.info(f"Automation successfully ran the commands for device: {validDeviceIP}:\n {removeACEOut}")
                     file.write(f"INFO: The following commands were executed:\n{removeACEOut}\n")
-                    print(f"INFO: Successfully deleted the old 70 & 80 ACEs and added the new 70 & 80 ACEs for device: {validDeviceIP}\n")
+                    print(f"INFO: Successfully deleted the old 70 & 80 ACEs and added the new 70 & 80 ACEs for device: {validDeviceIP}")
                     shACLOutAfter = sshAccess.send_command(shACL)
                     file.write(f"INFO: New configuration for device {validDeviceIP} ACL qos-trusted-20230615:\n{shACLOutAfter}\n")
                     print(f"INFO: New configuration for device {validDeviceIP} ACL qos-trusted-20230615:\n{shACLOutAfter}\n")
