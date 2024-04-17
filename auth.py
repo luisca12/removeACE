@@ -36,30 +36,28 @@ def Auth():
                         for ip in row:
                             ip = ip.strip()
                             ip = ip + ".mgmt.internal.das"
-                            print(ip)
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
+                                print(f"INFO: {ip} succesfully validated.")
                                 validIPs.append(ip)
                                 break
                             else:
-                                print(f"Invalid IP address format: {ip}, will be skipped.\n")
+                                print(f"INFO: Invalid IP address format: {ip}, will be skipped.\n")
                                 authLog.error(f"Invalid IP address found: {ip} in file: {csvFile}")
+                    if not validIPs:
+                        print(f"No valid IP addresses found in the file path: {csvFile}\n")
+                        authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
+                        authLog.error(traceback.format_exc())
+                        continue
+                    else:
+                        break  
             except FileNotFoundError:
                 print("File not found. Please check the file path and try again.")
                 authLog.error(f"File not found in path {csvFile}")
                 authLog.error(traceback.format_exc())
-                print("Exiting the program...")
-                os.system("PAUSE")
                 continue
-
-            if not validIPs:
-                print(f"No valid IP addresses found in the file path: {csvFile}\n")
-                authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
-                authLog.error(traceback.format_exc())
-                os.system("PAUSE")
-                return None
-            
-            return validIPs,username,netDevice
+        
+        return validIPs,username,netDevice
     else:
         authLog.info(f"User decided to manually enter the IP Addresses.")
         while True:
