@@ -1,0 +1,563 @@
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit udp any any
+    80 permit tcp any any
+    90 deny ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#conf t
+                ^
+% Invalid input detected at '^' marker.
+
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 deny ip any any log
+R6#
+R6#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit tcp any any
+    80 deny udp any any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#conf t
+                ^
+% Invalid input detected at '^' marker.
+
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit tcp any any
+    80 deny udp any any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit tcp any any
+    80 deny udp any any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+SW1#
+SW1#terminal width 511
+SW1#terminal length 0
+SW1#
+SW1#
+SW1#
+SW1#show run | i hostname
+hostname SW1
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit tcp any any
+    80 deny udp any any
+    90 permit ip any any log
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#ip access-list extended qos-trusted-20230615
+SW1(config-ext-nacl)#no 70
+SW1(config-ext-nacl)#no 80
+SW1(config-ext-nacl)#70 permit ip any host 30.230.15.145
+SW1(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+SW1(config-ext-nacl)#do wr
+Building configuration...
+Compressed configuration from 2623 bytes to 1505 bytes[OK]
+SW1(config-ext-nacl)#end
+SW1#
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+SW1#
+SW1#terminal width 511
+SW1#terminal length 0
+SW1#
+SW1#
+SW1#
+SW1#show run | i hostname
+hostname SW1
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#ip access-list extended qos-trusted-20230615
+SW1(config-ext-nacl)#no 70
+SW1(config-ext-nacl)#no 80
+SW1(config-ext-nacl)#70 permit ip any host 30.230.15.145
+SW1(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+SW1(config-ext-nacl)#do wr
+Building configuration...
+Compressed configuration from 2631 bytes to 1509 bytes[OK]
+SW1(config-ext-nacl)#end
+SW1#
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+SW1#
+SW1#terminal width 511
+SW1#terminal length 0
+SW1#
+SW1#
+SW1#
+SW1#show run | i hostname
+hostname SW1
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#ip access-list extended qos-trusted-20230615
+SW1(config-ext-nacl)#no 70
+SW1(config-ext-nacl)#no 80
+SW1(config-ext-nacl)#70 permit ip any host 30.230.15.145
+SW1(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+SW1(config-ext-nacl)#do wr
+Building configuration...
+Compressed configuration from 2631 bytes to 1509 bytes[OK]
+SW1(config-ext-nacl)#end
+SW1#
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+SW1#
+SW1#terminal width 511
+SW1#terminal length 0
+SW1#
+SW1#
+SW1#
+SW1#show run | i hostname
+hostname SW1
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#ip access-list extended qos-trusted-20230615
+SW1(config-ext-nacl)#no 70
+SW1(config-ext-nacl)#no 80
+SW1(config-ext-nacl)#70 permit ip any host 30.230.15.145
+SW1(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+SW1(config-ext-nacl)#do wr
+Building configuration...
+Compressed configuration from 2631 bytes to 1508 bytes[OK]
+SW1(config-ext-nacl)#end
+SW1#
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+R6#
+R6#exit
+
+SW1#
+SW1#terminal width 511
+SW1#terminal length 0
+SW1#
+SW1#
+SW1#
+SW1#show run | i hostname
+hostname SW1
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#ip access-list extended qos-trusted-20230615
+SW1(config-ext-nacl)#no 70
+SW1(config-ext-nacl)#no 80
+SW1(config-ext-nacl)#70 permit ip any host 30.230.15.145
+SW1(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+SW1(config-ext-nacl)#do wr
+Building configuration...
+Compressed configuration from 2631 bytes to 1506 bytes[OK]
+SW1(config-ext-nacl)#end
+SW1#
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    70 permit ip any host 30.230.15.145
+    80 permit ip host 30.230.15.145 any
+    90 permit ip any any log
+SW1#
+SW1#exit
+
+R6#
+R6#terminal width 511
+R6#terminal length 0
+R6#
+R6#
+R6#
+R6#show run | i hostname
+hostname R6
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    10 permit ip any host 30.230.15.145
+    20 permit ip host 30.230.15.145 any
+    30 permit ip any any log
+R6#
+R6#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R6(config)#
+R6(config)#ip access-list extended qos-trusted-20230615
+R6(config-ext-nacl)#no 70
+R6(config-ext-nacl)#no 80
+R6(config-ext-nacl)#70 permit ip any host 30.230.15.145
+R6(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+R6(config-ext-nacl)#do wr
+Building configuration...
+[OK]
+R6(config-ext-nacl)#end
+R6#
+R6#
+R6#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    10 permit ip any host 30.230.15.145
+    20 permit ip host 30.230.15.145 any
+    30 permit ip any any log
+R6#
+R6#exit
+
+SW1#
+SW1#terminal width 511
+SW1#terminal length 0
+SW1#
+SW1#
+SW1#
+SW1#show run | i hostname
+hostname SW1
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    10 permit ip any host 30.230.15.145
+    20 permit ip host 30.230.15.145 any
+    30 permit ip any any log
+SW1#
+SW1#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#
+SW1(config)#ip access-list extended qos-trusted-20230615
+SW1(config-ext-nacl)#no 70
+SW1(config-ext-nacl)#no 80
+SW1(config-ext-nacl)#70 permit ip any host 30.230.15.145
+SW1(config-ext-nacl)#80 permit ip host 30.230.15.145 any
+SW1(config-ext-nacl)#do wr
+Building configuration...
+Compressed configuration from 2561 bytes to 1450 bytes[OK]
+SW1(config-ext-nacl)#end
+SW1#
+SW1#
+SW1#show ip acce qos-trusted-20230615
+Extended IP access list qos-trusted-20230615
+    10 permit ip any host 30.230.15.145
+    20 permit ip host 30.230.15.145 any
+    30 permit ip any any log
+SW1#
+SW1#exit

@@ -48,12 +48,15 @@ def Auth():
                 print("File not found. Please check the file path and try again.")
                 authLog.error(f"File not found in path {csvFile}")
                 authLog.error(traceback.format_exc(),"\n")
+                continue
 
             if not validIPs:
                 print(f"No valid IP addresses found in the file path: {csvFile}\n")
                 authLog.error(f"No valid IP addresses found in the file path: {csvFile}")
                 authLog.error(traceback.format_exc(),"\n")
                 os.system("PAUSE")
+                continue
+            break
     else:
         authLog.info(f"User decided to manually enter the IP Addresses.")
         while True:
