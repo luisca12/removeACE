@@ -2,6 +2,7 @@ import socket
 from log import *
 from log import invalidIPLog
 import csv
+import traceback
 
 def checkIsDigit(input_str):
     try:
@@ -66,3 +67,30 @@ def delStringFromFile(filePath, stringToDel):
 
 def checkYNInput(stringInput):
     return stringInput.lower() == 'y' or stringInput.lower() == 'n'
+
+def checkReachability(ip, port=22):
+    # Used to check if an IP address is reachable on port TCP 22
+    try:
+        conn_test = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        conn_test.settimeout(3)
+        conn_result = conn_test.connect_ex((ip, port))
+        if conn_result == 0:
+            return 
+    except Exception as error:
+        print("Error occurred while checking device reachability:", error,"\n")
+        authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
+        authLog.debug(traceback.format_exc())
+    return False
+
+def readIPfromCSV(csvFile):
+    try:
+        with open(csvFile, "r") as deviceFile:
+            csvReader = csv.reader(deviceFile)
+            for row in csvReader:
+                for ip in row:
+                    ip = ip.strip()
+                    ip = ip + ".mgmt.internal.das"
+    except Exception as error:
+        print("Error occurred while checking device reachability:", error,"\n")
+        authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
+        authLog.debug(traceback.format_exc())

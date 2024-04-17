@@ -39,8 +39,22 @@ def Auth():
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
                                 print(f"INFO: {ip} succesfully validated.")
-                                validIPs.append(ip)
-                                break
+                                try: 
+                                    connTest = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                                    connTest.settimeout(3)
+                                    connResult = connTest.connect_ex((ip, 22))
+                                    if connResult == 0:
+                                        validIPs.append(ip)
+                                        print(f"Device {ip} is reachable on port TCP 22.")
+                                        authLog.info(f"Device {ip} is reachable on port TCP 22.")
+                                    else:
+                                        print(f"Device {ip} is not reachable on port TCP 22, will be skipped.")
+                                        authLog.error(f"Device IP: {ip}, is not reachable on port TCP 22.")
+                                        authLog.debug(traceback.format_exc())                                    
+                                except Exception as error:
+                                    print("Error occurred while checking device reachability:", error,"\n")
+                                    authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
+                                    authLog.debug(traceback.format_exc())
                             else:
                                 print(f"INFO: Invalid IP address format: {ip}, will be skipped.\n")
                                 authLog.error(f"Invalid IP address found: {ip} in file: {csvFile}")
@@ -60,9 +74,9 @@ def Auth():
         return validIPs,username,netDevice
     else:
         authLog.info(f"User decided to manually enter the IP Addresses.")
+        os.system("CLS")
+        greetingString()
         while True:
-            os.system("CLS")
-            greetingString()
             deviceIPs = input("\nPlease enter the devices IPs separated by commas: ")
             deviceIPsList = deviceIPs.split(',')
 
