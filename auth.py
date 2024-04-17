@@ -111,3 +111,5 @@ def Auth():
             if validIPs:
                 break
         validIPs, username, netDevice = requestLogin(validIPs)
+
+        return validIPs,username,netDevice
