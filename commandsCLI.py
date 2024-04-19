@@ -6,10 +6,14 @@ from auth import *
 
 import os
 import traceback
+import re
 
 shRun = "show run"
 shACL = "show ip access-list qos-trusted-20230615"
 shHostname = "show run | i hostname"
+
+ipIntBrief = "show interface status | include Port | notconnect" #Real regex for production
+intNotConnPatt = r'(Gi|Te)\d+/\d+/\d+' #Real regex for production
 
 removeACE = [
     'ip access-list extended qos-trusted-20230615',
@@ -86,3 +90,4 @@ def changeACL(validIPs, username, netDevice):
         print("Outputs and files successfully created.\n")
         print("For any erros or logs please check authLog.txt\n")
         os.system("PAUSE")
+

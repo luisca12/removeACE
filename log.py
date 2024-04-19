@@ -14,6 +14,7 @@ configHandler = logging.FileHandler('configChangesLog.txt')
 configHandler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 configChangeLog.addHandler(configHandler)
 
+# Configure logging for invalidIPLog.txt
 invalidIPLog = logging.getLogger('invalidIPLog')
 invalidIPLog.setLevel(logging.INFO)
 invalidIPHandler = logging.FileHandler('invalidIPLog.txt')

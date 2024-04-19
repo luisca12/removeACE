@@ -1,6 +1,6 @@
 
 from netmiko.exceptions import NetMikoAuthenticationException, NetMikoTimeoutException
-from functions import checkYNInput,validateIP,requestLogin
+from functions import checkYNInput,validateIP,requestLogin,checkReachPort22
 from strings import greetingString
 from log import *
 from log import invalidIPLog
@@ -35,28 +35,11 @@ def Auth():
                     for row in csvReader:
                         for ip in row:
                             ip = ip.strip()
-                            ip = ip + ".mgmt.internal.das"
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
                                 print(f"INFO: {ip} succesfully validated.")
-                                try: 
-                                    connTest = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                                    connTest.settimeout(3)
-                                    connResult = connTest.connect_ex((ip, 22))
-                                    if connResult == 0:
-                                        validIPs.append(ip)
-                                        print(f"Device {ip} is reachable on port TCP 22.")
-                                        authLog.info(f"Device {ip} is reachable on port TCP 22.")
-                                    else:
-                                        print(f"Device {ip} is not reachable on port TCP 22, will be skipped.")
-                                        authLog.error(f"Device IP: {ip}, is not reachable on port TCP 22.")
-                                        authLog.debug(traceback.format_exc())                                    
-                                except Exception as error:
-                                    print("Error occurred while checking device reachability:", error,"\n")
-                                    authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
-                                    authLog.debug(traceback.format_exc())
-                                finally:
-                                    connTest.close()
+                                IPreachChecked = checkReachPort22(ip)
+                                validIPs.append(IPreachChecked)
                             else:
                                 print(f"INFO: Invalid IP address format: {ip}, will be skipped.\n")
                                 authLog.error(f"Invalid IP address found: {ip} in file: {csvFile}")
@@ -87,23 +70,8 @@ def Auth():
             for ip in deviceIPsList:
                 ip = ip.strip()
                 if validateIP(ip):
-                    try:
-                        connTest = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        connTest.settimeout(3)
-                        connResult = connTest.connect_ex((ip, 22))
-                        if connResult == 0:
-                            validIPs.append(ip)
-                            print(f"Device {ip} is reachable on port TCP 22.")
-                            authLog.info(f"Device {ip} is reachable on port TCP 22.")
-                        else:
-                            print(f"Device {ip} is not reachable on port TCP 22, will be skipped.")
-                            authLog.error(f"Device IP: {ip}, is not reachable on port TCP 22.")
-                            authLog.debug(traceback.format_exc())
-
-                    except Exception as error:
-                        print("Error occurred while checking device reachability:", error,"\n")
-                        authLog.error(f"Error occurred while checking device reachability for IP {ip}: {error}")
-                        authLog.debug(traceback.format_exc())
+                    IPreachChecked = checkReachPort22(ip)
+                    validIPs.append(IPreachChecked)
                 else:
                     print(f"Invalid IP address format: {ip}, will be skipped.")
                     authLog.error(f"User {username} input the following invalid IP: {ip}")
