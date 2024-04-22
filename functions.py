@@ -1,5 +1,6 @@
 import socket
 import os
+import getpass
 from log import *
 from log import invalidIPLog
 import csv
@@ -66,8 +67,8 @@ def requestLogin(validIPs):
     while True:
         try:
             username = input("Please enter your username: ")
-            password = input("Please enter your password: ")
-            execPrivPassword = input("Please input your enable password: ")
+            password = getpass.getpass("Please enter your password: ")
+            execPrivPassword = getpass.getpass("Please input your enable password: ")
 
             for deviceIP in validIPs:
                 netDevice = {
