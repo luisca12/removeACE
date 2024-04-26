@@ -38,8 +38,8 @@ def Auth():
                             if validateIP(ip):
                                 authLog.info(f"Valid IP address found: {ip} in file: {csvFile}")
                                 print(f"INFO: {ip} succesfully validated.")
-                                IPreachChecked = checkReachPort22(ip)
-                                validIPs.append(IPreachChecked)
+                                IPreachChecked = checkReachPort22(ip) # NEED TO REVERT
+                                validIPs.append(IPreachChecked) # Append IPreachChecked
                             else:
                                 print(f"INFO: Invalid IP address format: {ip}, will be skipped.\n")
                                 authLog.error(f"Invalid IP address found: {ip} in file: {csvFile}")

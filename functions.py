@@ -72,15 +72,14 @@ def requestLogin(validIPs):
 
             for deviceIP in validIPs:
                 netDevice = {
-                    'device_type': 'cisco_ios',
+                    'device_type': 'cisco_xe',
                     'ip': deviceIP,
                     'username': username,
                     'password': password,
                     'secret': execPrivPassword
                 }
-                print(f"This is netDevice: {netDevice}\n")
-                print(f"This is deviceIP: {deviceIP}\n")
-                os.system("PAUSE")
+                # print(f"This is netDevice: {netDevice}\n")
+                # print(f"This is deviceIP: {deviceIP}\n")
 
                 # sshAccess = ConnectHandler(**netDevice)
                 # print(f"Login successful! Logged to device {deviceIP} \n")

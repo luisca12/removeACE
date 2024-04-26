@@ -28,8 +28,9 @@ removeACE = [
 def changeACL(validIPs, username, netDevice):
     # This function is to show the interfaces not connected.
     # show interface status | include Port | notconnect
-    try:
-        for validDeviceIP in validIPs:
+    
+    for validDeviceIP in validIPs:
+        try:
             validDeviceIP = validDeviceIP.strip()
             currentNetDevice = {
                 'device_type': 'cisco_xe',
@@ -38,7 +39,7 @@ def changeACL(validIPs, username, netDevice):
                 'password': netDevice['password'],
                 'secret': netDevice['secret'],
                 'global_delay_factor': 2.0,
-                'timeout': 60,
+                'timeout': 120,
                 'session_log': 'netmikoLog.txt',
                 'verbose': True,
                 'session_log_file_mode': 'append'
@@ -80,14 +81,13 @@ def changeACL(validIPs, username, netDevice):
                     print(f"INFO: New configuration for device {validDeviceIP} ACL qos-trusted-20230615:\n{shACLOutAfter}\n")
                     authLog.info(f"New configuration for ACL qos-trusted-20230615 in device {validDeviceIP}:\n {removeACE}")
 
-    except Exception as error:
-        print(f"An error occurred: {error}\n", traceback.format_exc())
-        authLog.info(f"User {username} connected to {validDeviceIP} got an error: {error}")
-        authLog.debug(traceback.format_exc(),"\n")
-        return []
-    
-    finally:
-        print("Outputs and files successfully created.\n")
-        print("For any erros or logs please check authLog.txt\n")
-        os.system("PAUSE")
-
+        except Exception as error:
+            print(f"An error occurred: {error}\n", traceback.format_exc())
+            authLog.error(f"User {username} connected to {validDeviceIP} got an error: {error}")
+            authLog.debug(traceback.format_exc(),"\n")
+            with open(f"failedDevices.txt","a") as failedDevices:
+                failedDevices.write(f"User {username} connected to {validDeviceIP} got an error.\n")
+        
+        finally:
+            print("Outputs and files successfully created.\n")
+            print("For any erros or logs please check authLog.txt\n")
